@@ -19,8 +19,7 @@ public class CricketLeagueAnalysisTest {
         try {
             CricketLeagueAnalysis cricketLeagueAnalysis=new CricketLeagueAnalysis(Cricket.CricketLeague.BATSMAN);
             cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.WRONG_FILE_PATH);
-            Comparator<PlayerDAO> comparatorByTopBattingAverage= Comparator.comparing(PlayerDAO::getAverage);
-            String sortedCensusData=cricketLeagueAnalysis.getSortedData(comparatorByTopBattingAverage.reversed());
+            String sortedCensusData=cricketLeagueAnalysis.getSortedData("average");
             BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
             Assert.assertEquals("MS Dhoni", batsManCSV[0].player);
         } catch (CricketLeagueAnalysisException e) {
@@ -31,7 +30,7 @@ public class CricketLeagueAnalysisTest {
     public void callSortMethod_WithoutLoadData_ShouldHandleException(){
         try {
             Comparator<PlayerDAO> comparatorByTopBattingAverage= Comparator.comparing(PlayerDAO::getAverage);
-            String sortedCensusData=new CricketLeagueAnalysis().getSortedData(comparatorByTopBattingAverage.reversed());
+            String sortedCensusData=new CricketLeagueAnalysis().getSortedData("average");
             BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
             Assert.assertEquals("MS Dhoni", batsManCSV[0].player);
         } catch (CricketLeagueAnalysisException e) {
@@ -43,8 +42,7 @@ public class CricketLeagueAnalysisTest {
         try {
             CricketLeagueAnalysis cricketLeagueAnalysis=new CricketLeagueAnalysis();
             cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_RUNS_CSV_FILE_PATH);
-            Comparator<PlayerDAO> comparatorByTopBattingAverage= Comparator.comparing(PlayerDAO::getAverage);
-            String sortedCensusData=cricketLeagueAnalysis.getSortedData(comparatorByTopBattingAverage.reversed());
+            String sortedCensusData=cricketLeagueAnalysis.getSortedData("average");
             BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
             Assert.assertEquals("MS Dhoni", batsManCSV[0].player);
         } catch (CricketLeagueAnalysisException e) {
@@ -57,15 +55,14 @@ public class CricketLeagueAnalysisTest {
         try {
             CricketLeagueAnalysis cricketLeagueAnalysis=new CricketLeagueAnalysis(Cricket.CricketLeague.BATSMAN);
             cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_RUNS_CSV_FILE_PATH);
-            Comparator<PlayerDAO> comparatorByTopBattingAverage= Comparator.comparing(PlayerDAO::getAverage);
-            String sortedCensusData=cricketLeagueAnalysis.getSortedData(comparatorByTopBattingAverage.reversed());
+            String sortedCensusData=cricketLeagueAnalysis.getSortedData("average");
             BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
             Assert.assertEquals("MS Dhoni", batsManCSV[0].player);
         } catch (CricketLeagueAnalysisException e) {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA,e.type);
         }
     }
-    
+
 
 
 }
