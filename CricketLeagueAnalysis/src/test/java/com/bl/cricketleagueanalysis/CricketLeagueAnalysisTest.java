@@ -188,4 +188,16 @@ public class CricketLeagueAnalysisTest {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
         }
     }
+    @Test
+    public void givenMostWktsCSVFile_ReturnMaxWktsWithAverage() {
+        try {
+            CricketLeagueAnalysis cricketLeagueAnalysis = new CricketLeagueAnalysis(Cricket.CricketLeague.BALLER);
+            cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_WKTS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalysis.getSortedData("wickets","average");
+            BallerCSV ballerCSV[] = new Gson().fromJson(sortedCensusData, BallerCSV[].class);
+            Assert.assertEquals("Imran Tahir", ballerCSV[0].player);
+        } catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
+        }
+    }
 }
