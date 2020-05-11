@@ -61,8 +61,21 @@ public class CricketLeagueAnalysisTest {
         } catch (CricketLeagueAnalysisException e) {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA,e.type);
         }
+
     }
 
+    @Test
+    public void givenMostRunsCSVFile_ReturnsTopStrickRate(){
+        try {
+            CricketLeagueAnalysis cricketLeagueAnalysis=new CricketLeagueAnalysis(Cricket.CricketLeague.BATSMAN);
+            cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_RUNS_CSV_FILE_PATH);
+            String sortedCensusData=cricketLeagueAnalysis.getSortedData("strickrate");
+            BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
+            Assert.assertEquals("Ishant Sharma", batsManCSV[0].player);
+        } catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA,e.type);
+        }
+    }
 
 
 }

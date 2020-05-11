@@ -42,56 +42,47 @@ public class CricketLeagueAnalysis {
         checkForListEmpty(cricketerMap);
         Comparator<PlayerDAO> comparator=null;
         for(int i=0;i<=parameter.length-1;i++) {
-            System.out.println(parameter[i]);
             comparator = sortingParameter(parameter[i]);
             if(i<parameter.length-1)
                 comparator = comparator.thenComparing(sortingParameter(parameter[i++]));
-
         }
         return arraylistInSortedOrder(comparator.reversed());
     }
 
-
     public Comparator sortingParameter(String parameter)
     {
         Comparator<PlayerDAO> comparator=null;
-        switch(parameter)
-        {
+        switch(parameter) {
             case "average":
-                comparator=Comparator.comparing(PlayerDAO::getAverage);
+                comparator = Comparator.comparing(PlayerDAO::getAverage);
                 break;
             case "strickrate":
-                comparator=Comparator.comparing(PlayerDAO::getStrickRate);
+                comparator = Comparator.comparing(PlayerDAO::getStrickRate);
                 break;
             case "six":
-                comparator=Comparator.comparing(PlayerDAO::getSix);
+                comparator = Comparator.comparing(PlayerDAO::getSix);
                 break;
             case "four":
-                comparator=Comparator.comparing(PlayerDAO::getFour);
+                comparator = Comparator.comparing(PlayerDAO::getFour);
                 break;
             case "run":
-                comparator=Comparator.comparing(PlayerDAO::getRuns);
+                comparator = Comparator.comparing(PlayerDAO::getRuns);
                 break;
             case "econ":
-                comparator=Comparator.comparing(PlayerDAO::getEcon);
+                comparator = Comparator.comparing(PlayerDAO::getEcon);
                 break;
             case "5wicket":
-                comparator=Comparator.comparing(PlayerDAO::getFiveW);
+                comparator = Comparator.comparing(PlayerDAO::getFiveW);
                 break;
             case "4wicket":
-                comparator=Comparator.comparing(PlayerDAO::getFourW);
+                comparator = Comparator.comparing(PlayerDAO::getFourW);
                 break;
             case "wickets":
-                comparator=Comparator.comparing(PlayerDAO::getWkts);
+                comparator = Comparator.comparing(PlayerDAO::getWkts);
                 break;
         }
-
-        //if(sortingOrder.equals("descending"))
-        //    comparator=comparator.reversed();
-
         return comparator;
     }
-
     //Check for Empty List
     private void checkForListEmpty(Map cricketerMap) throws CricketLeagueAnalysisException {
         if (cricketerMap==null || cricketerMap.size()==0){
