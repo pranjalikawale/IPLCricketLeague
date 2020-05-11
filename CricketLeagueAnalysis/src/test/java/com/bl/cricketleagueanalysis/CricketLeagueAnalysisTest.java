@@ -164,4 +164,16 @@ public class CricketLeagueAnalysisTest {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
         }
     }
+    @Test
+    public void givenMostWktsCSVFile_ReturnBestStrickRateWith5W4W() {
+        try {
+            CricketLeagueAnalysis cricketLeagueAnalysis = new CricketLeagueAnalysis(Cricket.CricketLeague.BALLER);
+            cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_WKTS_CSV_FILE_PATH);
+            String sortedCensusData = cricketLeagueAnalysis.getSortedData("strickrate","5wicket","4wicket");
+            BallerCSV ballerCSV[] = new Gson().fromJson(sortedCensusData, BallerCSV[].class);
+            Assert.assertEquals("Lasith Malinga", ballerCSV[0].player);
+        } catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
+        }
+    }
 }
