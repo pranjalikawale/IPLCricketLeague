@@ -201,6 +201,23 @@ public class CricketLeagueAnalysisTest {
         }
     }
     @Test
+    public void givenMostRunsAndWktsCSVFile_ReturnMostRunWithWktsWithAverage() {
+        try {
+            CricketLeagueAnalysis cricketLeagueAnalysisBatter=new CricketLeagueAnalysis(Cricket.CricketLeague.BATSMAN);
+            cricketLeagueAnalysisBatter.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_RUNS_CSV_FILE_PATH);
+            Comparator<PlayerDAO> comparatorByMaxRunsWithBestAverage= Comparator.comparing(PlayerDAO::getAverage);
+            CricketLeagueAnalysis cricketLeagueAnalysisBaller = new CricketLeagueAnalysis(Cricket.CricketLeague.BALLER);
+            cricketLeagueAnalysisBaller.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_WKTS_CSV_FILE_PATH);
+            Comparator<PlayerDAO> comparatorByMostRunWithWkts= Comparator.comparing(PlayerDAO::getAverage)
+                                                        .thenComparing(comparatorByMaxRunsWithBestAverage);
+            String sortedCensusData = cricketLeagueAnalysisBaller.getSortedData(comparatorByMostRunWithWkts.reversed());
+            BallerCSV ballerCSV[] = new Gson().fromJson(sortedCensusData, BallerCSV[].class);
+            Assert.assertEquals("Krishnappa Gowtham", ballerCSV[0].player);
+        } catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
+        }
+    }
+    @Test
     public void givenMostWktsCSVFile_ReturnMostRunWithWkts() {
         try {
             CricketLeagueAnalysis cricketLeagueAnalysis = new CricketLeagueAnalysis(Cricket.CricketLeague.BALLER);
@@ -211,4 +228,5 @@ public class CricketLeagueAnalysisTest {
         } catch (CricketLeagueAnalysisException e) {
             Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA, e.type);
         }
+    }	
 }
