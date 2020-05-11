@@ -103,4 +103,16 @@ public class CricketLeagueAnalysisTest {
         }
     }
 
+    @Test
+    public void givenMostRunsCSVFile_ReturnsBestAverageWithStrickRate(){
+        try {
+            CricketLeagueAnalysis cricketLeagueAnalysis=new CricketLeagueAnalysis(Cricket.CricketLeague.BATSMAN);
+            cricketLeagueAnalysis.cricketLeagueAnalysisData(CSVFilesPathDetails.MOST_RUNS_CSV_FILE_PATH);
+            String sortedCensusData=cricketLeagueAnalysis.getSortedData("average","strickrate");
+            BatsManCSV batsManCSV[] = new Gson().fromJson(sortedCensusData, BatsManCSV[].class);
+            Assert.assertEquals("MS Dhoni", batsManCSV[0].player);
+        } catch (CricketLeagueAnalysisException e) {
+            Assert.assertEquals(CricketLeagueAnalysisException.ExceptionType.NO_DATA,e.type);
+        }
+    }
 }
